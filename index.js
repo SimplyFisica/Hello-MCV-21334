@@ -1,9 +1,8 @@
-// index.js
-const express  = require('express');
+const express = require('express');
 const mongoose = require('mongoose');
 
-const port = process.env.PORT        || 3000;
-const db   = process.env.MONGODB_URI || 'mongodb://localhost/hellodb';
+const port = process.env.PORT || 3000;
+const db = process.env.MONGODB_URI || 'mongodb://localhost/hellodb';
 
 const app = express();
 
@@ -17,15 +16,13 @@ mongoose
   })
   .catch(err => console.error(`Connection error ${err}`));
 
-// set views
 app.set('view engine', 'pug');
 app.set('views', './views');
 
-// router
-const router = require('./routes/index');
+const router = require('./routes/router');
+
 app.use('/', router);
 
-// listen
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
