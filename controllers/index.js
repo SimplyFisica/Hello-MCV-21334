@@ -1,18 +1,21 @@
 const User = require('../models/User');
 
 exports.home = (req, res) => {
-  User.find().exec((err, usuarios) => {
-    console.log(usuarios);
-    res.render('index', { datos: usuarios });
+  User.find().sort('id').exec((err, users) => {
+    for (let user of users) {
+      user.age = Math.trunc((new Date() - user.birthday) / 31536000000);
+    }
+    res.render('index', { users: users });
   });
 };
 
 exports.search = (req, res) => {
-  // buscar por la query string
-  User.findOne({ id: req.query.id }).exec((err, usuario) => {
-    console.log(usuario);
-    let dato = null;
-    if (usuario) dato = [usuario];
-    res.render('index', { datos: dato });
-  });
-};
+  let result = null;
+  User.findOne({ id: req.query.id }).exec((err, user) => {
+    if (user != null) {
+      user.age = Math.trunc((new Date() - user.birthday) / 31536000000);
+      result = [user];
+    }
+    res.render('index', { users: result });
+  })
+}
