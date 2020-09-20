@@ -1,4 +1,4 @@
-  extends layout
+extends layout
 
 block content
   h1 Hello MVC
@@ -16,7 +16,7 @@ block content
         th Email
         th Cumpleaños
         th Edad
-      tbody    
+      tbody
         each user in users
           tr
             td= user.id
@@ -25,7 +25,5 @@ block content
             td= user.birthday.toLocaleDateString('es-AR')
             td= user.age
   else
-    h3 No hay resultados      
+    h3 No hay resultados
   hr
-  h4 Más info en 
-    a(href='https://developer.mozilla.org/es/docs/Learn/Server-side/Express_Nodejs/Tutorial_local_library_website') MDN
